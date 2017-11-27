@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:adjustViewBounds="true"
+    android:orientation="vertical">
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/card_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:layout_margin="@dimen/card_margin"
+        android:elevation="3dp"
+        card_view:cardCornerRadius="@dimen/card_mov_rad" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/mov_cover_height"
+                android:id="@+id/thumb"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:scaleType="fitXY"/>
+
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/thumb"
+                android:paddingLeft="@dimen/mov_title_padd"
+                android:paddingRight="@dimen/mov_title_padd"
+                android:paddingTop="@dimen/mov_title_padd"
+                android:textColor="@color/tl_movie"
+                android:textSize="@dimen/mov_title"/>
+
+            <TextView
+                android:id="@+id/userrating"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/title"
+                android:paddingLeft="@dimen/mov_title_padd"
+                android:paddingRight="@dimen/mov_title_padd"
+                android:paddingBottom="@dimen/user_rating_padd_bottom"
+                android:textColor="@color/colorAccent"
+                android:textSize="@dimen/user_rating"/>
+        </RelativeLayout>
+
+</LinearLayout>
