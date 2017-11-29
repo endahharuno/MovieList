@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.ContextWrapper;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -109,6 +110,43 @@ public class MainActivity extends AppCompatActivity {
             Service apiService =
                     Client.getClient().create(Service.class);
             Call<ResponseMovies> call = apiService.getPopularMovies(BuildConfig.THE_MOVIE_API);
+            call.enqueue(new Callback<ResponseMovies>() {
+                @Override
+                public void onResponse(Call<ResponseMovies> call, Response<ResponseMovies> response) {
+                    List<Movie> movies = response.body().getResults();
+                    recyclerView.setAdapter(new MoviesAdapter(getApplicationContext(), movies));
+                    recyclerView.smoothScrollToPosition(0);
+                    if (swipeContainer.isRefreshing()) {
+                        swipeContainer.setRefreshing(false);
+                    }
+                    pd.dismiss();
+                }
+
+                @Override
+                public void onFailure(Call<ResponseMovies> call, Throwable t) {
+                    Log.d("Error", t.getMessage());
+                    Toast.makeText(MainActivity.this, "Error fetching Data!", Toast.LENGTH_SHORT).show();
+                }
+            });
+        } catch (Exception e) {
+            Log.d("Error", e.getMessage());
+            Toast.makeText(this, e.toString(), Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void loadJSON1() {
+
+        try {
+            if (BuildConfig.THE_MOVIE_API.isEmpty()) {
+                Toast.makeText(getApplicationContext(), "Please obtain API Key firstly from themoviedb.org", Toast.LENGTH_SHORT);
+                pd.dismiss();
+                return;
+            }
+
+            Client Client = new Client();
+            Service apiService =
+                    Client.getClient().create(Service.class);
+            Call<ResponseMovies> call = apiService.getTopRatedMovies(BuildConfig.THE_MOVIE_API);
             call.enqueue(new Callback<ResponseMovies>() {
                 @Override
                 public void onResponse(Call<ResponseMovies> call, Response<ResponseMovies> response) {
