@@ -33,7 +33,7 @@ import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
 
-    @BindView(R.id.rec_view)
+    @BindView(R.id.recycler_view)
     RecyclerView recyclerView;
     @BindView(R.id.main_content)
     SwipeRefreshLayout swipeContainer;
@@ -51,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
 
         initViews();
 
+        //color to swipe
         swipeContainer.setColorSchemeResources(android.R.color.holo_orange_dark);
         swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override

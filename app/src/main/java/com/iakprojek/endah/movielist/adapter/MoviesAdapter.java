@@ -63,7 +63,7 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MyViewHold
         TextView title;
         @BindView(R.id.userrating)
         TextView userrating;
-        @BindView(R.id.thumb)
+        @BindView(R.id.thumbnail)
         ImageView thumb;
 
         public MyViewHolder(View view) {

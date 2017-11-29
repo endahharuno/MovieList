@@ -29,11 +29,11 @@ public class DetailActivity extends AppCompatActivity {
     TextView userRating;
     @BindView(R.id.releasedate)
     TextView releaseDate;
-    @BindView(R.id.thumb_image_header)
+    @BindView(R.id.thumbnail_image_header)
     ImageView imageView;
     @BindView(R.id.toolbar)
     Toolbar toolbar;
-    @BindView(R.id.collaps_toolbar)
+    @BindView(R.id.collapsing_toolbar)
     CollapsingToolbarLayout collapsingToolbarLayout;
     @BindView(R.id.appbar)
     AppBarLayout appBarLayout;
@@ -57,7 +57,6 @@ public class DetailActivity extends AppCompatActivity {
             String rating = getIntent().getExtras().getString("vote_average");
             String dateOfRelease = getIntent().getExtras().getString("release_date");
 
-            Log.e("endah", "thumbnail = "+ thumbnail);
             Glide.with(this)
                     .load(thumbnail)
                     .placeholder(R.drawable.ic_launcher_background)
@@ -86,7 +85,7 @@ public class DetailActivity extends AppCompatActivity {
                     scrollRange = appBarLayout.getTotalScrollRange();
                 }
                 if (scrollRange + verticalOffset == 0) {
-                    collapsingToolbarLayout.setTitle(getString(R.string.mov_details));
+                    collapsingToolbarLayout.setTitle(getString(R.string.movie_details));
                     isShow = true;
                 } else if(isShow) {
                     collapsingToolbarLayout.setTitle(" ");
