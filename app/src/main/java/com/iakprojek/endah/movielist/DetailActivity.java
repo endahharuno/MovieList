@@ -101,12 +101,12 @@ public class DetailActivity extends AppCompatActivity {
         }
 
         MaterialFavoriteButton materialFavoriteButtonNice = findViewById(R.id.favorite_button);
-        materialFavoriteButtonNice.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(activity, "endah jelek", Toast.LENGTH_SHORT).show();
-            }
-        });
+//        materialFavoriteButtonNice.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Toast.makeText(activity, "endah jelek", Toast.LENGTH_SHORT).show();
+//            }
+//        });
 
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 
@@ -122,7 +122,7 @@ public class DetailActivity extends AppCompatActivity {
                             Snackbar.make(buttonView, "Added to Favorite",
                                     Snackbar.LENGTH_SHORT).show();
                         } else {
-                            int movie_id = getIntent().getExtras().getInt("id");
+                            int movie_id = getIntent().getExtras().getInt("movie_id");
                             favoriteDbHelper = new FavoriteDbHelper(DetailActivity.this);
                             favoriteDbHelper.deleteFavorite(movie_id);
                             SharedPreferences.Editor editor = getSharedPreferences("DetailActivity", MODE_PRIVATE).edit();
