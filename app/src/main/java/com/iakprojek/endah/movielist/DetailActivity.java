@@ -51,6 +51,8 @@ public class DetailActivity extends AppCompatActivity {
     TextView releaseDate;
     @BindView(R.id.thumbnail_image_header)
     ImageView imageView;
+    @BindView(R.id.thumbposter)
+    ImageView thumbPoster;
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.collapsing_toolbar)
@@ -85,17 +87,22 @@ public class DetailActivity extends AppCompatActivity {
             String rating = getIntent().getExtras().getString("vote_average");
             String dateOfRelease = getIntent().getExtras().getString("release_date");
 
-//            String poster = "http://image.tmdb.org/t/p/w500" + thumbnail;
+            String poster = "http://image.tmdb.org/t/p/w500" + thumbnail;
 
             Glide.with(this)
-                    .load(thumbnail)
+                    .load(poster)
                     .placeholder(R.drawable.ic_launcher_background)
                     .into(imageView);
 
+            Glide.with(this)
+                    .load(poster)
+                    .placeholder(R.drawable.ic_launcher_background)
+                    .into(thumbPoster);
+
             nameOfMovie.setText(movieName);
             plotSynopsis.setText(synopsis);
-            userRating.setText(rating);
-            releaseDate.setText(dateOfRelease);
+            userRating.setText("Rating : "+ rating);
+            releaseDate.setText("Release : "+ dateOfRelease);
         } else {
             Toast.makeText(this, "No API Data", Toast.LENGTH_SHORT).show();
         }
@@ -118,13 +125,15 @@ public class DetailActivity extends AppCompatActivity {
                             SharedPreferences.Editor editor = getSharedPreferences("DetailActivity", MODE_PRIVATE).edit();
                             editor.putBoolean("Favorite added", true);
                             editor.commit();
-                            saveFavorite();
+//                            saveFavorite();
                             Snackbar.make(buttonView, "Added to Favorite",
                                     Snackbar.LENGTH_SHORT).show();
                         } else {
                             int movie_id = getIntent().getExtras().getInt("movie_id");
-                            favoriteDbHelper = new FavoriteDbHelper(DetailActivity.this);
-                            favoriteDbHelper.deleteFavorite(movie_id);
+//                            favoriteDbHelper = new FavoriteDbHelper(DetailActivity.this);
+//                            favoriteDbHelper.deleteFavorite(movie_id);
+                            Log.d("movie id", String.valueOf(movie_id));
+
                             SharedPreferences.Editor editor = getSharedPreferences("DetailActivity", MODE_PRIVATE).edit();
                             editor.putBoolean("Favorite Removed", true);
                             editor.commit();
@@ -209,7 +218,7 @@ public class DetailActivity extends AppCompatActivity {
     private void saveFavorite() {
         favoriteDbHelper = new FavoriteDbHelper(activity);
         favorite = new Movie();
-        int movie_id = getIntent().getExtras().getInt("movie_id");
+        int movie_id = getIntent().getExtras ().getInt("movie_id");
         String rate = getIntent().getExtras().getString("vote_average");
         String poster = getIntent().getExtras().getString("poster_path");
 

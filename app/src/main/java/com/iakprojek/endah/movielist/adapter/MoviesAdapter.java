@@ -50,7 +50,7 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MyViewHold
         String poster = "http://image.tmdb.org/t/p/w500" + movieList.get(i).getPosterPath();
 
         Glide.with(mContext)
-                .load(movieList.get(i).getPosterPath())
+                .load(poster)
                 .placeholder(R.drawable.ic_launcher_background)
                 .into(viewHolder.thumb);
     }
@@ -79,6 +79,7 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MyViewHold
                     if (pos != RecyclerView.NO_POSITION) {
                         Movie clickedDataItem = movieList.get(pos);
                         Intent intent = new Intent(mContext, DetailActivity.class);
+
                         intent.putExtra("original_title", movieList.get(pos).getOriginalTitle());
                         intent.putExtra("poster_path", movieList.get(pos).getPosterPath());
                         intent.putExtra("overview", movieList.get(pos).getOverview());

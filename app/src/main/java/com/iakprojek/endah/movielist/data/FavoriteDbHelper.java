@@ -18,9 +18,9 @@ import java.util.List;
 
 public class FavoriteDbHelper extends SQLiteOpenHelper {
 
-    public static final String LOGTAG = "FAVORITE";
     private static final String DATABASE_NAME = "favorite.db";
     private static final int DATABASE_VERSION = 1;
+    public static final String LOGTAG = "FAVORITE";
     SQLiteOpenHelper dbhandler;
     SQLiteDatabase db;
 
@@ -47,7 +47,7 @@ public class FavoriteDbHelper extends SQLiteOpenHelper {
                 FavoriteContract.FavoriteEntry.COLUMN_USERRATING + " REAL NOT NULL, " +
                 FavoriteContract.FavoriteEntry.COLUMN_POSTER_PATH + " TEXT NOT NULL, " +
                 FavoriteContract.FavoriteEntry.COLUMN_PLOT_SYNOPSIS + "TEXT NOT NULL, " +
-                ");";
+                "); ";
         sqLiteDatabase.execSQL(SQL_CREATE_FAVORITE_TABLE);
     }
 
@@ -108,6 +108,7 @@ public class FavoriteDbHelper extends SQLiteOpenHelper {
                 movie.setOverview(cursor.getString(cursor.getColumnIndex(FavoriteContract.FavoriteEntry.COLUMN_PLOT_SYNOPSIS)));
 
                 favoriteList.add(movie);
+
             } while (cursor.moveToNext());
         }
         cursor.close();

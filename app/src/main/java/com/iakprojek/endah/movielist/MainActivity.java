@@ -74,6 +74,8 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
 
     private void initViews() {
 
+        ButterKnife.bind(this);
+
         pd = new ProgressDialog(this);
         pd.setMessage("Fetching movies ...");
         pd.setCancelable(false);
@@ -238,7 +240,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         if (sortOrder.equals(this.getString(R.string.pref_most_popular))) {
             Log.d(LOG_TAG, "Sorting by most popular");
             loadJSON();
-        } else if (sortOrder.equals(this.getString(R.string.pref_most_popular))) {
+        } else if (sortOrder.equals(this.getString(R.string.favorite))) {
             Log.d(LOG_TAG, "Sorting by favorite");
             initViews2();
         } else {
