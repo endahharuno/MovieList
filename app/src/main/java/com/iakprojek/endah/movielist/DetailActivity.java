@@ -143,7 +143,7 @@ public class DetailActivity extends AppCompatActivity {
                             Snackbar.make(buttonView, "Added to Favorite",
                                     Snackbar.LENGTH_SHORT).show();
                         } else {
-                            int movie_id = getIntent().getExtras().getInt("id");
+//                            int movie_id = getIntent().getExtras().getInt("id");
                             favoriteDbHelper = new FavoriteDbHelper(DetailActivity.this);
                             favoriteDbHelper.deleteFavorite(movie_id);
                             Log.d("movie id", String.valueOf(movie_id));
