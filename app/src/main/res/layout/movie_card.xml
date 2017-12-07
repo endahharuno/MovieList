@@ -48,17 +48,15 @@
                 android:orientation="horizontal"
                 android:weightSum="2">
 
-                <RatingBar
-                    android:id="@+id/movie_ratebar"
-                    style="?android:attr/ratingBarStyleSmall"
+                <me.zhanghai.android.materialratingbar.MaterialRatingBar
+                    android:id="@+id/ratingbar"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:numStars="5"
-                    android:progressBackgroundTint="#ffffff"
-                    android:progressTint="#FFEA00"
-                    android:rating="4.7"
-                    android:secondaryProgressTint="#ffffff" />
+                    android:minHeight="16dp"
+                    android:maxHeight="16dp"
+                    android:stepSize="0.01"
+                    android:rating="2.9"
+                    style="@style/Widget.MaterialRatingBar.RatingBar.Indicator" />
 
                 <TextView
                     android:id="@+id/userrating"

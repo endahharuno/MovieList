@@ -22,6 +22,7 @@ android {
     }
 }
 
+
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile 'com.android.support:appcompat-v7:26.1.0'
@@ -49,4 +50,5 @@ dependencies {
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     compile 'com.github.ivbaranov:materialfavoritebutton:0.1.4'
     debugCompile 'com.amitshekhar.android:debug-db:1.0.1'
+    compile 'me.zhanghai.android.materialratingbar:library:1.2.0'
 }

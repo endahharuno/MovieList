@@ -74,12 +74,10 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
 
     private void initViews() {
 
-        ButterKnife.bind(this);
-
-        pd = new ProgressDialog(this);
-        pd.setMessage("Fetching movies ...");
-        pd.setCancelable(false);
-        pd.show();
+//        pd = new ProgressDialog(this);
+//        pd.setMessage("Fetching movies ...");
+//        pd.setCancelable(false);
+//        pd.show();
 
         movieList = new ArrayList<>();
         adapter = new MoviesAdapter(this, movieList);
@@ -93,7 +91,6 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
-
         favoriteDbHelper = new FavoriteDbHelper(activity);
 
         //color to swipe
@@ -111,10 +108,10 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
 
     private void initViews2() {
 
-        pd = new ProgressDialog(this);
-        pd.setMessage("Fetching movies ...");
-        pd.setCancelable(false);
-        pd.show();
+//        pd = new ProgressDialog(this);
+//        pd.setMessage("Fetching movies ...");
+//        pd.setCancelable(false);
+//        pd.show();
 
         movieList = new ArrayList<>();
         adapter = new MoviesAdapter(this, movieList);
@@ -128,7 +125,6 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
-
         favoriteDbHelper = new FavoriteDbHelper(activity);
 
         getAllFavorite();
@@ -156,7 +152,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
                     if (swipeContainer.isRefreshing()) {
                         swipeContainer.setRefreshing(false);
                     }
-                    pd.dismiss();
+//                    pd.dismiss();
                 }
 
                 @Override
@@ -193,7 +189,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
                     if (swipeContainer.isRefreshing()) {
                         swipeContainer.setRefreshing(false);
                     }
-                    pd.dismiss();
+//                    pd.dismiss();
                 }
 
                 @Override
@@ -256,6 +252,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
             checkSortOrder();
         } else {
 
+            checkSortOrder();
         }
     }
 
