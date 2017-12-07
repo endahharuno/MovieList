@@ -129,6 +129,7 @@ public class DetailActivity extends AppCompatActivity {
 //            }
 //        });
 
+//        materialFavoriteButtonNice.setFavorite(true, false);
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 
         materialFavoriteButtonNice.setOnFavoriteChangeListener(
