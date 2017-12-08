@@ -1,15 +1,11 @@
 package com.iakprojek.endah.movielist;
 
-import android.app.Activity;
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
-import android.content.Context;
-import android.content.ContextWrapper;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.preference.Preference;
 import android.preference.PreferenceManager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -39,37 +35,22 @@ import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity implements SharedPreferences.OnSharedPreferenceChangeListener {
 
+    public static final String LOG_TAG = MoviesAdapter.class.getName();
     @BindView(R.id.recycler_view)
     RecyclerView recyclerView;
-    private MoviesAdapter adapter;
-    private List<Movie> movieList;
-    ProgressDialog pd;
     @BindView(R.id.main_content)
     SwipeRefreshLayout swipeContainer;
+    ProgressDialog pd;
+    private MoviesAdapter adapter;
+    private List<Movie> movieList;
     private FavoriteDbHelper favoriteDbHelper;
-    private AppCompatActivity activity = MainActivity.this;
-    public static final String LOG_TAG = MoviesAdapter.class.getName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         ButterKnife.bind(this);
-
         initViews();
-
-    }
-
-    public Activity getActivity() {
-        Context context = this;
-        while (context instanceof ContextWrapper) {
-            if (context instanceof Activity) {
-                return (Activity) context;
-            }
-            context = ((ContextWrapper) context).getBaseContext();
-        }
-        return null;
     }
 
     private void initViews() {
@@ -82,7 +63,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         movieList = new ArrayList<>();
         adapter = new MoviesAdapter(this, movieList);
 
-        if (getActivity().getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
             recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
         } else {
             recyclerView.setLayoutManager(new GridLayoutManager(this, 4));
@@ -91,7 +72,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
-        favoriteDbHelper = new FavoriteDbHelper(activity);
+        favoriteDbHelper = new FavoriteDbHelper(this);
 
         //color to swipe
         swipeContainer.setColorSchemeResources(android.R.color.holo_orange_dark);
@@ -116,7 +97,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         movieList = new ArrayList<>();
         adapter = new MoviesAdapter(this, movieList);
 
-        if (getActivity().getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
             recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
         } else {
             recyclerView.setLayoutManager(new GridLayoutManager(this, 4));
@@ -125,7 +106,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
-        favoriteDbHelper = new FavoriteDbHelper(activity);
+        favoriteDbHelper = new FavoriteDbHelper(this);
 
         getAllFavorite();
     }
@@ -212,9 +193,16 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
 
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.menu_settings:
-                Intent intent = new Intent(this, SettingsActivity.class);
-                startActivity(intent);
+            case R.id.popular:
+//                Intent intent = new Intent(this, SettingsActivity.class);
+//                startActivity(intent);
+                loadJSON();
+                return true;
+            case R.id.rate:
+                loadJSON1();
+                return true;
+            case R.id.favorite:
+                initViews2();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -256,6 +244,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         }
     }
 
+    @SuppressLint("StaticFieldLeak")
     private void getAllFavorite() {
         new AsyncTask<Void, Void, Void>() {
 

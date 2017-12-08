@@ -2,6 +2,7 @@ package com.iakprojek.endah.movielist;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.design.widget.AppBarLayout;
@@ -104,7 +105,7 @@ public class DetailActivity extends AppCompatActivity {
 
             Glide.with(this)
                     .load(poster)
-                    .placeholder(R.drawable.ic_launcher_background)
+                    .placeholder(R.drawable.broken)
                     .into(imageView);
 
             Glide.with(this)
@@ -129,7 +130,13 @@ public class DetailActivity extends AppCompatActivity {
 //            }
 //        });
 
-//        materialFavoriteButtonNice.setFavorite(true, false);
+        favoriteDbHelper = new FavoriteDbHelper(DetailActivity.this);
+        Cursor data = favoriteDbHelper.selectId(movie_id);
+
+        if (data.getCount() > 0) {
+            materialFavoriteButtonNice.setFavorite(true, false);
+        }
+
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 
         materialFavoriteButtonNice.setOnFavoriteChangeListener(

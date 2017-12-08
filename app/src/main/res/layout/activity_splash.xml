@@ -16,15 +16,17 @@
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="220dp"
+            android:padding="@dimen/padding_layout"
             android:layout_marginBottom="20dp"
             android:layout_centerHorizontal="true"
-            android:src="@drawable/ic_launcher_background"/>
+            android:src="@drawable/launcher"/>
 
         <ProgressBar
             android:id="@+id/progressbar_Horizontal"
             style="?android:attr/progressBarStyleHorizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:padding="@dimen/padding_layout"
             android:layout_centerHorizontal="true"
             android:progressTint="@color/colorAccent"/>
 

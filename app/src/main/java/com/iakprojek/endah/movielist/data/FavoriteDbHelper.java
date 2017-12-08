@@ -47,7 +47,8 @@ public class FavoriteDbHelper extends SQLiteOpenHelper {
                 FavoriteContract.FavoriteEntry.COLUMN_TITLE + " TEXT NOT NULL, " +
                 FavoriteContract.FavoriteEntry.COLUMN_USERRATING + " REAL NOT NULL, " +
                 FavoriteContract.FavoriteEntry.COLUMN_POSTER_PATH + " TEXT NOT NULL, " +
-                FavoriteContract.FavoriteEntry.COLUMN_PLOT_SYNOPSIS + " TEXT NOT NULL " +
+                FavoriteContract.FavoriteEntry.COLUMN_PLOT_SYNOPSIS + " TEXT NOT NULL, " +
+                FavoriteContract.FavoriteEntry.COLUMN_IS_FAVORITE + " INTEGER " +
                 "); ";
         sqLiteDatabase.execSQL(SQL_CREATE_FAVORITE_TABLE);
     }
@@ -75,6 +76,13 @@ public class FavoriteDbHelper extends SQLiteOpenHelper {
     public void deleteFavorite(int id) {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(FavoriteContract.FavoriteEntry.TABLE_NAME, FavoriteContract.FavoriteEntry.COLUMN_MOVIEID+ "=" + id, null);
+    }
+
+    public Cursor selectId(int id) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor res = db.rawQuery("SELECT * FROM " + FavoriteContract.FavoriteEntry.TABLE_NAME + " WHERE " + FavoriteContract.FavoriteEntry.COLUMN_MOVIEID + "=" + id, null);
+
+        return res;
     }
 
     public List<Movie> getAllFavorite() {
@@ -120,3 +128,4 @@ public class FavoriteDbHelper extends SQLiteOpenHelper {
         return favoriteList;
     }
 }
+
