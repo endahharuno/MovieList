@@ -12,7 +12,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.support.v7.widget.Toolbar;
@@ -21,12 +20,13 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.github.ivbaranov.mfb.MaterialFavoriteButton;
 import com.iakprojek.endah.movielist.adapter.TrailerAdapter;
-import com.iakprojek.endah.movielist.api.Client;
-import com.iakprojek.endah.movielist.api.Service;
+import com.iakprojek.endah.movielist.network.Client;
+import com.iakprojek.endah.movielist.network.Service;
 import com.iakprojek.endah.movielist.data.FavoriteDbHelper;
 import com.iakprojek.endah.movielist.model.Movie;
 import com.iakprojek.endah.movielist.model.Trailer;
 import com.iakprojek.endah.movielist.model.TrailerResponse;
+import com.iakprojek.endah.movielist.network.UrlComposer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -70,7 +70,7 @@ public class DetailActivity extends AppCompatActivity {
     private final AppCompatActivity activity = DetailActivity.this;
 
     Movie movie;
-    String thumbnail, movieName, synopsis, rating, dateOfRelease;
+    String thumbnail, movieName, synopsis, rating, dateOfRelease, imageHeader;
     int movie_id;
 
     @Override
@@ -86,11 +86,6 @@ public class DetailActivity extends AppCompatActivity {
 
         Intent intentThatStartedThisActivity = getIntent();
         if (intentThatStartedThisActivity.hasExtra("movies")) {
-//            String thumbnail = getIntent().getExtras().getString("poster_path");
-//            String movieName = getIntent().getExtras().getString("original_title");
-//            String synopsis = getIntent().getExtras().getString("overview");
-//            String rating = getIntent().getExtras().getString("vote_average");
-//            String dateOfRelease = getIntent().getExtras().getString("release_date");
 
             movie = getIntent().getParcelableExtra("movies");
 
@@ -99,12 +94,14 @@ public class DetailActivity extends AppCompatActivity {
             synopsis = movie.getOverview();
             rating = Double.toString(movie.getVoteAverage());
             dateOfRelease = movie.getReleaseDate();
+            imageHeader = movie.getBackdropPath();
             movie_id = movie.getId();
 
-            String poster = "http://image.tmdb.org/t/p/w500" + thumbnail;
+            String poster = UrlComposer.URL_POSTER_MOVIE + thumbnail;
+            String backdrop = UrlComposer.URL_POSTER_MOVIE + imageHeader;
 
             Glide.with(this)
-                    .load(poster)
+                    .load(backdrop)
                     .placeholder(R.drawable.broken)
                     .into(imageView);
 
@@ -148,7 +145,7 @@ public class DetailActivity extends AppCompatActivity {
                             editor.putBoolean("Favorite added", true);
                             editor.commit();
                             saveFavorite();
-                            Snackbar.make(buttonView, "Added to Favorite",
+                            Snackbar.make(buttonView, "Add to Favorite",
                                     Snackbar.LENGTH_SHORT).show();
                         } else {
 //                            int movie_id = getIntent().getExtras().getInt("id");
@@ -157,7 +154,7 @@ public class DetailActivity extends AppCompatActivity {
                             Log.d("movie id", String.valueOf(movie_id));
 
                             SharedPreferences.Editor editor = getSharedPreferences("com.iakprojek.endah.movielist.DetailActivity", MODE_PRIVATE).edit();
-                            editor.putBoolean("Favorite Removed", true);
+                            editor.putBoolean("Remove Favorite", true);
                             editor.commit();
                             Snackbar.make(buttonView, "Remove from Favorite",
                                     Snackbar.LENGTH_SHORT).show();
@@ -213,8 +210,7 @@ public class DetailActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), "Please obtain your API key from themoviedb.org", Toast.LENGTH_SHORT).show();
                 return;
             }
-            Client Client = new Client();
-            Service apiService = com.iakprojek.endah.movielist.api.Client.getClient().create(Service.class);
+            Service apiService = com.iakprojek.endah.movielist.network.Client.getClient().create(Service.class);
             Call<TrailerResponse> call = apiService.getMovieTrailer(movie_id, BuildConfig.THE_MOVIE_API);
             call.enqueue(new Callback<TrailerResponse>() {
                 @Override
@@ -240,9 +236,6 @@ public class DetailActivity extends AppCompatActivity {
     private void saveFavorite() {
         favoriteDbHelper = new FavoriteDbHelper(activity);
         favorite = new Movie();
-//        int movie_id = getIntent().getExtras ().getInt("movie_id");
-//        String rate = getIntent().getExtras().getString("vote_average");
-//        String poster = getIntent().getExtras().getString("poster_path");
 
         Double rate = movie.getVoteAverage();
 

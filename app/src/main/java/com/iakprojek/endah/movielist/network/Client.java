@@ -1,4 +1,4 @@
-package com.iakprojek.endah.movielist.api;
+package com.iakprojek.endah.movielist.network;
 
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
@@ -11,7 +11,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class Client {
 
-    public static final String BASE_URL = "http://api.themoviedb.org/3/";
     public static Retrofit retrofit = null;
 
     public static Retrofit getClient() {
@@ -24,7 +23,7 @@ public class Client {
                     .build();
 
             retrofit = new Retrofit.Builder()
-                    .baseUrl(BASE_URL)
+                    .baseUrl(UrlComposer.BASE_URL)
                     .client(mClient)
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();

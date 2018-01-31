@@ -18,8 +18,8 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.iakprojek.endah.movielist.adapter.MoviesAdapter;
-import com.iakprojek.endah.movielist.api.Client;
-import com.iakprojek.endah.movielist.api.Service;
+import com.iakprojek.endah.movielist.network.Client;
+import com.iakprojek.endah.movielist.network.Service;
 import com.iakprojek.endah.movielist.data.FavoriteDbHelper;
 import com.iakprojek.endah.movielist.model.Movie;
 import com.iakprojek.endah.movielist.model.ResponseMovies;
@@ -55,10 +55,10 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
 
     private void initViews() {
 
-//        pd = new ProgressDialog(this);
-//        pd.setMessage("Fetching movies ...");
-//        pd.setCancelable(false);
-//        pd.show();
+        pd = new ProgressDialog(this);
+        pd.setMessage("Fetching movies list ...");
+        pd.setCancelable(false);
+        pd.show();
 
         movieList = new ArrayList<>();
         adapter = new MoviesAdapter(this, movieList);
@@ -89,11 +89,6 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
 
     private void initViews2() {
 
-//        pd = new ProgressDialog(this);
-//        pd.setMessage("Fetching movies ...");
-//        pd.setCancelable(false);
-//        pd.show();
-
         movieList = new ArrayList<>();
         adapter = new MoviesAdapter(this, movieList);
 
@@ -114,15 +109,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
     private void loadJSON() {
 
         try {
-            if (BuildConfig.THE_MOVIE_API.isEmpty()) {
-                Toast.makeText(getApplicationContext(), "Please obtain API Key firstly from themoviedb.org", Toast.LENGTH_SHORT);
-                pd.dismiss();
-                return;
-            }
-
-            Client Client = new Client();
-            Service apiService =
-                    Client.getClient().create(Service.class);
+            Service apiService = Client.getClient().create(Service.class);
             Call<ResponseMovies> call = apiService.getPopularMovies(BuildConfig.THE_MOVIE_API);
             call.enqueue(new Callback<ResponseMovies>() {
                 @Override
@@ -133,7 +120,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
                     if (swipeContainer.isRefreshing()) {
                         swipeContainer.setRefreshing(false);
                     }
-//                    pd.dismiss();
+                    pd.dismiss();
                 }
 
                 @Override
@@ -151,15 +138,14 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
     private void loadJSON1() {
 
         try {
-            if (BuildConfig.THE_MOVIE_API.isEmpty()) {
-                Toast.makeText(getApplicationContext(), "Please obtain API Key firstly from themoviedb.org", Toast.LENGTH_SHORT);
-                pd.dismiss();
-                return;
-            }
+//            if (BuildConfig.THE_MOVIE_API.isEmpty()) {
+//                Toast.makeText(getApplicationContext(), "Please obtain API Key firstly from themoviedb.org", Toast.LENGTH_SHORT);
+//                pd.dismiss();
+//                return;
+//            }
 
             Client Client = new Client();
-            Service apiService =
-                    Client.getClient().create(Service.class);
+            Service apiService = Client.getClient().create(Service.class);
             Call<ResponseMovies> call = apiService.getTopRatedMovies(BuildConfig.THE_MOVIE_API);
             call.enqueue(new Callback<ResponseMovies>() {
                 @Override
@@ -170,7 +156,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
                     if (swipeContainer.isRefreshing()) {
                         swipeContainer.setRefreshing(false);
                     }
-//                    pd.dismiss();
+                    pd.dismiss();
                 }
 
                 @Override

@@ -16,10 +16,6 @@ public class ResponseMovies implements Parcelable {
     private int page;
     @SerializedName("results")
     private List<Movie> results;
-    @SerializedName("total_results")
-    private int totalResults;
-    @SerializedName("total_pages")
-    private int totalPages;
 
     public int getPage() {
         return page;
@@ -37,22 +33,6 @@ public class ResponseMovies implements Parcelable {
         this.results = results;
     }
 
-    public int getTotalResult() {
-        return totalResults;
-    }
-
-    public void setTotalResult(int totalResult) {
-        this.totalResults = totalResults;
-    }
-
-    public int getTotalPages() {
-        return totalPages;
-    }
-
-    public void setTotalPages(int totalPages) {
-        this.totalPages = totalPages;
-    }
-
     @Override
     public int describeContents() {
         return 0;
@@ -62,18 +42,11 @@ public class ResponseMovies implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(this.page);
         dest.writeTypedList(this.results);
-        dest.writeInt(this.totalResults);
-        dest.writeInt(this.totalPages);
-    }
-
-    public ResponseMovies() {
     }
 
     protected ResponseMovies(Parcel in) {
         this.page = in.readInt();
         this.results = in.createTypedArrayList(Movie.CREATOR);
-        this.totalResults = in.readInt();
-        this.totalPages = in.readInt();
     }
 
     public static final Parcelable.Creator<ResponseMovies> CREATOR = new Parcelable.Creator<ResponseMovies>() {

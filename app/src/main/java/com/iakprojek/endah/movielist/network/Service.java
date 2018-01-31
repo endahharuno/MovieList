@@ -1,4 +1,4 @@
-package com.iakprojek.endah.movielist.api;
+package com.iakprojek.endah.movielist.network;
 
 import com.iakprojek.endah.movielist.model.ResponseMovies;
 import com.iakprojek.endah.movielist.model.TrailerResponse;

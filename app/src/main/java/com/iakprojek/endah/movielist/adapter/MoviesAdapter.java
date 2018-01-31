@@ -2,7 +2,6 @@ package com.iakprojek.endah.movielist.adapter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Parcelable;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,9 +15,9 @@ import com.bumptech.glide.Glide;
 import com.iakprojek.endah.movielist.DetailActivity;
 import com.iakprojek.endah.movielist.R;
 import com.iakprojek.endah.movielist.model.Movie;
+import com.iakprojek.endah.movielist.network.UrlComposer;
 
 import java.util.List;
-import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -48,9 +47,9 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MyViewHold
     public void onBindViewHolder(final MyViewHolder viewHolder, int i) {
         viewHolder.title.setText(movieList.get(i).getOriginalTitle());
 
-        viewHolder.userrating.setText(movieList.get(i).getVoteAverage() +"");
+        viewHolder.userrating.setText(String.valueOf(movieList.get(i).getVoteAverage()));
         viewHolder.ratingBar.setRating((float) (movieList.get(i).getVoteAverage()/2.0));
-        String poster = "http://image.tmdb.org/t/p/w500" + movieList.get(i).getPosterPath();
+        String poster = UrlComposer.URL_POSTER_MOVIE + movieList.get(i).getPosterPath();
 
         Glide.with(mContext)
                 .load(poster)

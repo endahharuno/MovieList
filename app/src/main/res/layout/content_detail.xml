@@ -23,20 +23,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <android.support.constraint.Guideline
-                    android:id="@+id/guidelineLeft"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    app:layout_constraintGuide_begin="10dp" />
-
-                <android.support.constraint.Guideline
-                    android:id="@+id/guidelineRight"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    app:layout_constraintGuide_end="20dp" />
-
                 <LinearLayout
                     android:id="@+id/titlelayout"
                     android:layout_width="match_parent"
@@ -98,12 +84,10 @@
 
                 <View
                     android:id="@+id/line"
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:layout_marginTop="3dp"
                     android:background="@android:color/darker_gray"
-                    app:layout_constraintEnd_toEndOf="@id/guidelineRight"
-                    app:layout_constraintStart_toStartOf="@id/guidelineLeft"
                     app:layout_constraintTop_toBottomOf="@+id/titlelayout" />
 
                 <TextView
@@ -118,12 +102,10 @@
 
                 <View
                     android:id="@+id/line2"
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:layout_marginTop="3dp"
                     android:background="@android:color/darker_gray"
-                    app:layout_constraintEnd_toEndOf="@id/guidelineRight"
-                    app:layout_constraintStart_toStartOf="@id/guidelineLeft"
                     app:layout_constraintTop_toBottomOf="@+id/overview"/>
 
                 <TextView
@@ -139,12 +121,10 @@
 
                 <View
                     android:id="@+id/line3"
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:layout_marginTop="3dp"
                     android:background="@android:color/darker_gray"
-                    app:layout_constraintEnd_toEndOf="@id/guidelineRight"
-                    app:layout_constraintStart_toStartOf="@id/guidelineLeft"
                     app:layout_constraintTop_toBottomOf="@+id/plotsynopsis" />
 
                 <TextView
@@ -159,12 +139,10 @@
 
                 <View
                     android:id="@+id/line4"
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:layout_marginTop="3dp"
                     android:background="@android:color/darker_gray"
-                    app:layout_constraintEnd_toEndOf="@id/guidelineRight"
-                    app:layout_constraintStart_toStartOf="@id/guidelineLeft"
                     app:layout_constraintTop_toBottomOf="@+id/trailer"/>
 
                 <android.support.v7.widget.RecyclerView

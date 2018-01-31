@@ -47,7 +47,7 @@ public class Loading extends AsyncTask<String, Integer, Integer> {
             publishProgress(progress);
 
             try {
-                Thread.sleep(200);
+                Thread.sleep(300);
             } catch (InterruptedException ignore) {
             }
         }

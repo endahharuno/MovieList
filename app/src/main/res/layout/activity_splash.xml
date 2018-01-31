@@ -13,6 +13,15 @@
         android:orientation="vertical"
         android:layout_centerInParent="true">
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Created by Nur Endah Irwanti"
+            android:gravity="center"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:padding="@dimen/padding_layout"/>
+
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="220dp"
